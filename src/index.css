@@ -1,3 +1,17 @@
 body {
   margin: 0;
 }
+@font-face {
+  font-family: "lalezar";
+  src: url("./assets/Lalezar.ttf");
+}
+.lalezar{
+  font-family: "lalezar";
+}
+@font-face {
+  font-family: "vazir";
+  src: url("./assets/Vazir.ttf");
+}
+.vazir{
+  font-family: "vazir";
+}
