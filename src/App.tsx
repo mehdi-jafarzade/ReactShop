@@ -1,13 +1,10 @@
-function App() {
- 
+import { useRoutes } from "react-router-dom"
+import routes from "./routes"
 
-  return (
-    <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function App() {
+ const routsm  = useRoutes(routes)
+
+  return routsm
 }
 
 export default App
