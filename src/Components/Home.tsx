@@ -17,8 +17,8 @@ export default function Home() {
               
               
               <form className="d-flex justify-content-center search-form position-absolute top-50 start-50 vazir translate-middle">
-                <input type="search" placeholder="سرچ کنید..." className="form-control px-4" />
-                <Button variant="secondary">جستجو</Button>{' '}
+                <input type="search" placeholder="جستجو کنید..." className="form-control px-4 border-2 border-warning" />
+                <Button className="border-2 border-warning ms-1" variant="secondary">جستجو</Button>{' '}
               </form>
              
             </div>
