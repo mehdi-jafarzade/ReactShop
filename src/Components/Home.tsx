@@ -1,7 +1,34 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Layout from "./Layout";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import BasicExample from "./cart";
+interface ds {
+  name: string;
+  img: string;
+  h1: string;
+  id: string;
+}
+interface UserData {
+  name: string;
+  cat: string;
+  img: string;
+  id: string;
+}
 
 export default function Home() {
+  const [data, setData] = useState<UserData[]>([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/user")
+      .then((res) => {
+        setData(res.data); 
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <Layout>
       <Container fluid>
@@ -50,6 +77,70 @@ export default function Home() {
             <img src="/images/pin.jpg" className="img-fluid mt-5" />
           </Col>
         </Row>
+          <h3 className="vazir mt-5">
+            جدیدترین محصولات:
+          </h3>
+        <Row className="d-flex justify-content-center" xs={1} sm={2} md={2} lg={3} xl={4}>
+  {data
+    .filter((item) => item.cat === "mobile")
+    .slice(0, 4)
+    .map((item) => (
+      <Col key={item.name} className="mt-2 d-flex justify-content-center">
+        <div className="text-center">
+          <BasicExample item={item}/>
+        </div>
+      </Col>
+    ))}
+</Row>
+
+<h3 className="vazir mt-5">
+            جدیدترین محصولات:
+          </h3>
+        <Row className="d-flex justify-content-center" xs={1} sm={2} md={2} lg={3} xl={4}>
+  {data
+    .filter((item) => item.cat === "laptop")
+    .slice(0, 4)
+    .map((item) => (
+      <Col key={item.name} className="mt-2 d-flex justify-content-center">
+        <div className="text-center">
+          <BasicExample item={item}/>
+        </div>
+      </Col>
+    ))}
+</Row>
+
+<h3 className="vazir mt-5">
+            جدیدترین محصولات:
+          </h3>
+        <Row className="d-flex justify-content-center" xs={1} sm={2} md={2} lg={3} xl={4}>
+  {data
+    .filter((item) => item.cat === "mobiletool")
+    .slice(0, 4)
+    .map((item) => (
+      <Col key={item.name} className="mt-2 d-flex justify-content-center">
+        <div className="text-center">
+          <BasicExample item={item}/>
+        </div>
+      </Col>
+    ))}
+</Row>
+
+<h3 className="vazir mt-5">
+            جدیدترین محصولات:
+          </h3>
+        <Row className="d-flex justify-content-center" xs={1} sm={2} md={2} lg={3} xl={4}>
+  {data
+    .filter((item) => item.cat === "computer")
+    .slice(0, 4)
+    .map((item) => (
+      <Col key={item.name} className="mt-2 d-flex justify-content-center">
+        <div className="text-center">
+          <BasicExample item={item}/>
+        </div>
+      </Col>
+    ))}
+</Row>
+
       </Container>
     </Layout>
   );
