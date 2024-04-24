@@ -3,17 +3,12 @@ import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BasicExample from "./cart";
-interface ds {
-  name: string;
-  img: string;
-  h1: string;
-  id: string;
-}
 interface UserData {
   name: string;
   cat: string;
   img: string;
   id: string;
+  h1:string;
 }
 
 export default function Home() {

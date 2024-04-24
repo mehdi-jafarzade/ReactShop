@@ -9,6 +9,8 @@ import { FaTelegram } from "react-icons/fa6";
 import { SiWhatsapp } from "react-icons/si";
 import { FaInstagram } from "react-icons/fa6";
 import { BiSupport } from "react-icons/bi";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 function OffcanvasExample() {
   
@@ -51,6 +53,9 @@ function OffcanvasExample() {
                         اخبار تکنولوژی 
                     </NavDropdown.Item>
                   </NavDropdown>
+                  <Link to={'/cart'}>
+                    <MdOutlineShoppingCart color='black' className="mt-3" size={25} />
+                  </Link>
                 <Form className="d-flex mt-3 vazir">
                   <Form.Control
                     type="search"
