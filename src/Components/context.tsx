@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, Dispatch, ReactNode } from 'react';
+import { createContext, useReducer, Dispatch, ReactNode } from 'react';
 import Cookies from 'js-cookie';
 
 interface CartItem {
@@ -29,7 +29,8 @@ type Action =
   | { type: 'REMOVE_ITEM'; payload: { id: number } }
   | { type: 'SAVE_SHIPPING_DATA'; payload: ShippingData }
   | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
-  | { type: 'INCREASE_QUANTITY'; payload: { id: number } };
+  | { type: 'DECREMENT_QUANTITY'; payload: { id: number } }
+  | { type: 'INCREMENT_QUANTITY'; payload: { id: number } };
 
   const initialState: InitialState = {
     cart: Cookies.get('cart')

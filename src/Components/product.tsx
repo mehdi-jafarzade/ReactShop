@@ -31,13 +31,15 @@ export default function Product() {
       });
   }, [id]);
 
-  const addToCartHandler = ()=> {
+  const addToCartHandler = () => {
     if (data) {
-      const existingItem = cart.cartItems.find((item) => item.id === data.id);
-      const qty = existingItem ? existingItem.qty + 1 : 1;
-      dispatch({ type: "ADD_TO_CART", payload: { ...data, qty } });
+      const existingItem = cart.cartItems.find((item) => item.id.toString() === data.id);
+      const qty = existingItem ? (typeof existingItem.qty === 'number' ? existingItem.qty + 1 : 1) : 1;
+      const payload = { ...data, qty, id: parseInt(data.id) };
+      dispatch({ type: "ADD_TO_CART", payload });
     }
   }
+  
 
   return (
     <Layout>

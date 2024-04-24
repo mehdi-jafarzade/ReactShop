@@ -1,23 +1,33 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Store from "./context";
 import Layout from "./Layout";
 import { Button, Table } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
+interface item {
+    name: string;
+    cat: string;
+    img: string;
+    id: number;
+    p1: string;
+    h1: string;
+    price: string;
+    qty: number;
+  }
 function CartPage() {
   const { state, dispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
 
-  function removeItemHandler(item) {
+  function removeItemHandler(item : item) {
     dispatch({ type: "REMOVE_ITEM", payload: item });
   }
-  function incrementQuantityHandler(id) {
+  function incrementQuantityHandler(id : number) {
     console.log("Incrementing quantity for item with ID:", id);
     dispatch({ type: "INCREMENT_QUANTITY", payload: { id } });
   }
 
-  function decrementQuantityHandler(id) {
+  function decrementQuantityHandler(id : number) {
     dispatch({ type: "DECREMENT_QUANTITY", payload: { id } });
   }
 
@@ -82,14 +92,14 @@ function CartPage() {
               </tbody>
             </Table>
           </div>
-          <div className="col-md-3 vazir">
+          <div className="col-md-3 vazir text-center">
             <div className="pb-3 text-center">
               <strong>جمع قیمت:</strong>{" "}
-              {cartItems.reduce((acc, cur) => acc + cur.qty * cur.price, 0)}
+              {cartItems.reduce((acc, cur ) => acc + cur.qty * parseFloat(cur.price), 0)}
             </div>
-            <Button variant="dark" className="w-100">
+            <Link style={{textDecoration: "none" , borderRadius: "5px"}} to={'/payment'}  className="bg-dark text-white px-2 py-1 rounded-md">
               ادامه پرداخت
-            </Button>
+            </Link>
           </div>
         </div>
       )}
