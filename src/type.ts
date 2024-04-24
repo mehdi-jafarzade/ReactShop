@@ -6,6 +6,7 @@ export interface UserData {
     p1: string;
     h1: string;
     price: string;
+    slug: string;
   }
 
   

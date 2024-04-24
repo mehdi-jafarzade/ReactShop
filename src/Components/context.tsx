@@ -5,7 +5,7 @@ interface CartItem {
   name: string;
   cat: string;
   img: string;
-  id: string;
+  id: number;
   p1: string;
   h1: string;
   price: string;
@@ -26,16 +26,16 @@ interface InitialState {
 
 type Action =
   | { type: 'ADD_TO_CART'; payload: CartItem }
-  | { type: 'REMOVE_ITEM'; payload: { id: string } }
+  | { type: 'REMOVE_ITEM'; payload: { id: number } }
   | { type: 'SAVE_SHIPPING_DATA'; payload: ShippingData }
-  | { type: 'SAVE_PAYMENT_METHOD'; payload: string };
+  | { type: 'SAVE_PAYMENT_METHOD'; payload: string }
+  | { type: 'INCREASE_QUANTITY'; payload: { id: number } };
 
-const initialState: InitialState = {
-  cart: Cookies.get('cart')
-    ? JSON.parse(Cookies.get('cart')!)
-    : { cartItems: [], shippingData: {} },
-};
-
+  const initialState: InitialState = {
+    cart: Cookies.get('cart')
+      ? JSON.parse(Cookies.get('cart')!)
+      : { cartItems: [], shippingData: {}, paymentMethod: undefined },
+  };
 const Store = createContext<{ state: InitialState; dispatch: Dispatch<Action> }>({
   state: initialState,
   dispatch: () => null,
@@ -64,6 +64,27 @@ function reducer(state: InitialState, action: Action): InitialState {
 
       return { ...state, cart: { ...state.cart, cartItems } };
     }
+    case 'INCREMENT_QUANTITY': {
+        const { id } = action.payload;
+        const updatedCartItems = state.cart.cartItems.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        );
+      
+        Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems: updatedCartItems }));
+      
+        return { ...state, cart: { ...state.cart, cartItems: updatedCartItems } };
+      }
+      case 'DECREMENT_QUANTITY': {
+        const { id } = action.payload;
+        const updatedCartItems = state.cart.cartItems.map((item) =>
+          item.id === id ? { ...item, qty: Math.max(item.qty - 1, 0) } : item
+        );
+      
+        Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems: updatedCartItems }));
+      
+        return { ...state, cart: { ...state.cart, cartItems: updatedCartItems } };
+      }
+            
 
     case 'SAVE_SHIPPING_DATA':
       return {
