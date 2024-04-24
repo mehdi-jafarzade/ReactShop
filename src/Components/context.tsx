@@ -9,10 +9,11 @@ interface CartItem {
   p1: string;
   h1: string;
   price: string;
+  qty: number;
 }
 
 interface ShippingData {
-  // Define your shipping data interface here
+  
 }
 
 interface InitialState {
@@ -25,7 +26,7 @@ interface InitialState {
 
 type Action =
   | { type: 'ADD_TO_CART'; payload: CartItem }
-  | { type: 'REMOVE_ITEM'; payload: { slug: string } }
+  | { type: 'REMOVE_ITEM'; payload: { id: string } }
   | { type: 'SAVE_SHIPPING_DATA'; payload: ShippingData }
   | { type: 'SAVE_PAYMENT_METHOD'; payload: string };
 
@@ -57,7 +58,7 @@ function reducer(state: InitialState, action: Action): InitialState {
     }
 
     case 'REMOVE_ITEM': {
-      const cartItems = state.cart.cartItems.filter((item) => item.id !== action.payload.slug);
+      const cartItems = state.cart.cartItems.filter((item) => item.id !== action.payload.id);
 
       Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
 

@@ -2,7 +2,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import BasicExample from "./cart";
+import BasicExample from "./card";
 interface UserData {
   name: string;
   cat: string;

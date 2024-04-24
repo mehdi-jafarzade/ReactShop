@@ -1,15 +1,13 @@
+import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
-interface UserData {
-  name: string;
-  cat: string;
-  img: string;
-  id: string;
-  p1: string;
-  h1: string;
-  price: string;
+import { UserData } from '../type';
+
+interface BasicCardProps {
+  item: UserData;
+  handler: () => void; // Change handler type to match the new signature
 }
-function BasicCard({item} : {item : UserData}) {
+
+const BasicCard: React.FC<BasicCardProps> = ({ item, handler }) => {
   return (
     <Card className='vazir' style={{ width: '18rem' }}>
       <Card.Img variant="top" src={item.img} />
@@ -18,7 +16,8 @@ function BasicCard({item} : {item : UserData}) {
         <Card.Text className='lalezar fs-5 text-danger'>
           <span className='text-black'>قیمت : </span>{item.price}
         </Card.Text>
-        <Link to={`/product/${item.id}`} style={{backgroundColor: "#bc4cf5" , textDecoration: "none", borderRadius: "3px"}} className='px-3 py-1 text-white' >افزودن به سبد</Link>
+        {/* Ensure handler is triggered on button click */}
+        <button onClick={handler} style={{backgroundColor: "#bc4cf5" , textDecoration: "none", borderRadius: "3px"}} className='px-3 py-1 text-white' >افزودن به سبد</button>
       </Card.Body>
     </Card>
   );

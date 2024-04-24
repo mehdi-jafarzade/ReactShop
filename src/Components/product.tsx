@@ -1,40 +1,43 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import BasicCard from "./cardproduct";
 import Layout from "./Layout";
 import Formcomment from "./formcomment";
-
-interface UserData {
-  name: string;
-  cat: string;
-  img: string;
-  id: string;
-  p1: string;
-  h1: string;
-  price: string;
-}
+import { UserData } from "../type";
+import Store from "./context";
 
 export default function Product() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
+
   const [data, setData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/${id}`)
+    axios
+      .get<UserData>(`http://localhost:3000/user/${id}`)
       .then((res) => {
         setData(res.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
-        
+        console.error("Error fetching data:", error);
         setError("Error fetching data");
         setLoading(false);
       });
   }, [id]);
+
+  function addToCartHandler() {
+    if (data) {
+      const existingItem = cart.cartItems.find((item) => item.id === data.id);
+      const qty = existingItem ? existingItem.qty + 1 : 1;
+      dispatch({ type: "ADD_TO_CART", payload: { ...data, qty } });
+    }
+  }
 
   return (
     <Layout>
@@ -46,7 +49,7 @@ export default function Product() {
             <Row className="d-flex justify-content-center" xs={1} md={2}>
               <Col>
                 <div className="text-center d-flex justify-content-center">
-                  <BasicCard item={data} />
+                  <BasicCard item={data} handler={addToCartHandler} />
                 </div>
               </Col>
 
