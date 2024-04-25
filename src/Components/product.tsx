@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import Formcomment from "./formcomment";
 import { UserData } from "../type";
 import Store from "./context";
+import Swal from "sweetalert2";
 
 export default function Product() {
   const { id } = useParams<{ id: string }>();
@@ -37,9 +38,12 @@ export default function Product() {
       const qty = existingItem ? (typeof existingItem.qty === 'number' ? existingItem.qty + 1 : 1) : 1;
       const payload = { ...data, qty, id: parseInt(data.id) };
       dispatch({ type: "ADD_TO_CART", payload });
+        Swal.fire({
+            icon: 'success',
+            title: 'به سبد اضافه شد.',
+    });
     }
   }
-  
 
   return (
     <Layout>

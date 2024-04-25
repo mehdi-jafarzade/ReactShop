@@ -34,12 +34,12 @@ function OffcanvasExample() {
               </Offcanvas.Header>
               <Offcanvas.Body >
                 <Nav variant="secondary" className="justify-content-end justify-content-md-around flex-grow-1 pe-3 d-flex">
-                    <Nav.Link href="#action1" className='fs-5 lalezar text-dark'>صفحه اصلی</Nav.Link>
+                    <Nav.Link href="/" className='fs-5 lalezar text-dark'>صفحه اصلی</Nav.Link>
                   <NavDropdown className='lalezar mt-md-1 mt-2 fs-5'
                     title="محصولات"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">موبایل</NavDropdown.Item>
+                    <NavDropdown.Item href="/mobile">موبایل</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item  href="#action4">
                        لپ تاپ
@@ -75,7 +75,7 @@ function OffcanvasExample() {
                 <FaInstagram size={25} className='ms-3'/>
             </div>
             <img className='d-none d-md-flex' style={{width: "55px" , marginLeft: "10px"}} src='/images/logo.png' />
-            <Navbar.Brand className='lalezar fs-3 d-none d-md-flex' href="#">تکنوسام</Navbar.Brand>
+            <Navbar.Brand className='lalezar fs-3 d-none d-md-flex' href="/">تکنوسام</Navbar.Brand>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>
